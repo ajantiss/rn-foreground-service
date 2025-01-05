@@ -114,7 +114,20 @@ public class ForegroundService extends Service {
     }
 
     private int mapServiceType(String customServiceType) {
-        switch (customServiceType) {
+        if (customServiceType.contains("|")) {
+            String[] types = customServiceType.split("\\|");
+            int combinedServiceType = 0;
+            for (String type : types) {
+                combinedServiceType |= mapSingleServiceType(type.trim());
+            }
+            return combinedServiceType;
+        } else {
+            return mapSingleServiceType(customServiceType);
+        }
+    }
+    
+    private int mapSingleServiceType(String singleServiceType) {
+        switch (singleServiceType) {
             case "camera":
                 return ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA;
             case "connectedDevice":
@@ -141,12 +154,11 @@ public class ForegroundService extends Service {
                 return ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
             case "systemExempted":
                 return ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED;
-
             default:
-                throw new IllegalArgumentException("Unknown foreground service type: " + customServiceType);
+                throw new IllegalArgumentException("Unknown foreground service type: " + singleServiceType);
         }
     }
-
+    
     public Bundle taskConfig;
     private Handler handler = new Handler();
     private Runnable runnableCode = new Runnable() {
