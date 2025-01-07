@@ -245,4 +245,9 @@ public class ForegroundServiceModule extends ReactContextBaseJavaModule {
         promise.resolve(res);
     }
 
+    @ReactMethod
+    public void addListener(String eventName) {}
+
+    @ReactMethod
+    public void removeListeners(Integer count) {}
 }
