@@ -20,7 +20,7 @@ import com.facebook.react.R;
 
 
 class NotificationHelper {
-    private static final String NOTIFICATION_CHANNEL_ID = "com.supersami.foregroundservice.channel";
+    private static final String NOTIFICATION_CHANNEL_ID = "com.avencall.phone";
 
     private static NotificationHelper instance = null;
     private NotificationManager mNotificationManager;
